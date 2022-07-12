@@ -1,0 +1,10 @@
+.login-div {
+    width: 300px;
+    height: auto;
+    padding: 10px;
+    border: 2px solid blue;
+    position: absolute;
+    z-index: 1;
+    left: calc(50% - 155px);
+    top: 200px;
+}

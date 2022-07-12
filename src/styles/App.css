@@ -1,0 +1,24 @@
+.App {}
+
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+li,
+a {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  text-decoration: none;
+}
+
+.container {
+  min-width: 200px;
+  height: auto;
+  overflow: auto;
+  float: left;
+  border: 1px solid black;
+}
+
