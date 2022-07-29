@@ -1,0 +1,113 @@
+@import "./resets-global", "./Nav";
+
+.components {
+    color: red($color: red);
+}
+
+.App {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: $primary-bg-color;
+
+
+
+    // .error,
+    // .warning {
+    //     font-size: 15px;
+    //     // color: #ff0000c9;
+    //     color: rgb(83, 8, 223);
+
+    //     font-weight: bold;
+    //     text-align: center;
+    //     margin: auto;
+    // }
+
+    .notification-div {
+        position: absolute;
+        z-index: 2;
+        width: 60%;
+        left: 20%;
+        bottom: 100px;
+
+        .pop-up__error,
+        .pop-up__info {
+            width: fit-content;
+            padding: 5px 20px;
+            font-size: 15px;
+            border-radius: 20px;
+            background-color: antiquewhite;
+            font-weight: bold;
+            text-align: center;
+            margin: 10px auto;
+
+        }
+
+        .pop-up__error {
+            color: rgb(223, 8, 55);
+        }
+
+        .pop-up__info {
+            bottom: 80px;
+            color: rgb(83, 8, 223);
+        }
+    }
+
+
+    .reset-text {
+        font-size: 15px;
+        padding: 4px 0;
+        position: absolute;
+        z-index: 1;
+        bottom: 10px;
+        color: white;
+        width: 200px;
+        border-radius: 100px;
+        margin-left: calc(50% - 100px);
+        text-align: center;
+        background-color: $primary-bg-color;
+
+    }
+
+    @media (min-width: map-get($deviceSize, small)) {
+        .reset-text {
+            margin-left: 0;
+            width: 30%;
+            bottom: 0;
+            border-radius: 0;
+        }
+    }
+
+    @media (min-width: map-get($deviceSize, medium)) {
+
+        .reset-text {
+            width: calc(25% - 2px);
+        }
+    }
+
+}
+
+
+
+.list-container {
+    width: 100%;
+    min-height: calc(100vh - 112px);
+    // background-color: $main-bg-color;
+    background-color: rgb(200, 217, 240);
+    border-radius: 30px 30px 0 0;
+    overflow: auto;
+
+    @media (min-width: map-get($deviceSize, small)) {
+        width: calc(30% - 2px);
+        float: left;
+        border-radius: 0;
+        border-right: 1px solid #817f8640;
+        overflow: auto;
+        height: calc(100vh - 50px);
+    }
+
+    @media (min-width: map-get($deviceSize, medium)) {
+        width: calc(25% - 2px);
+        float: left;
+        // background-color: transparent;
+    }
+}

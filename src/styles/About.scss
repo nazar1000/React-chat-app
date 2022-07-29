@@ -1,0 +1,31 @@
+@import "./resets-global";
+
+.help {
+    position: absolute;
+    background-color: #9fc3f3;
+    z-index: 2;
+    width: 280px;
+    padding: 20px;
+    text-align: center;
+    left: calc(50% - 150px);
+    top: 200px;
+    border: 3px solid $primary-bg-color;
+    border-radius: 20px;
+
+    h1 {}
+
+    ul {
+        text-align: left;
+
+        li {
+            list-style-type: circle;
+            margin: 10px 0;
+
+            h3 {
+                font-size: 15px;
+            }
+        }
+    }
+
+
+}

@@ -1,0 +1,125 @@
+@import "./resets-global", "./list_mixin.scss";
+
+.conversations-list-div {
+    @include list-div;
+
+    .list__header {
+        // position: relative;
+
+        .new-chat-button {
+            width: 70px;
+            height: 70px;
+            // background-image: url(../icons/add.png); //Add icon created by Pixel perfect - Flaticon
+            position: absolute;
+            z-index: 1;
+            bottom: 20px;
+            right: 20px;
+            cursor: pointer;
+
+
+            &:hover {
+                animation-name: shake;
+                animation-duration: 2s;
+                animation-iteration-count: infinite
+            }
+        }
+
+
+
+
+    }
+
+    .invite {
+        margin: 5px 0;
+        background-color: rgb(138, 146, 255);
+        overflow: auto;
+        padding: 10px 0;
+
+        h2 {
+            font-size: 20px;
+            text-align: center;
+        }
+
+
+
+        .button {
+            width: 45%;
+            float: left;
+            padding: 10px 0;
+            font-size: 14px;
+            margin: 10px 2.5%;
+            border-radius: 10px;
+        }
+
+        .button:nth-of-type(1) {
+            margin-left: 2.5%;
+        }
+    }
+
+    .conversation {
+        @include list-element;
+
+
+
+        .conversation__tools {
+            @include list-element__tools;
+
+            .add-users-button {
+                width: 30px;
+                height: auto;
+                padding: 10px 0;
+                // background-image: url(../icons/add-user.png);
+                float: right;
+                cursor: pointer;
+
+
+            }
+
+            .remove {
+                width: 30px;
+                height: auto;
+                padding: 10px 0;
+                // background-image: url(../icons/delete.png); //Delete icons created by Kiranshastry - Flaticon
+                float: right;
+
+                &:hover {
+                    // background-image: url(../icons/delete-filled.png); //Delete icons created by Kiranshastry - Flaticon
+                    cursor: pointer;
+                    animation-name: shake;
+                    animation-duration: 1s;
+                    animation-timing-function: linear;
+                    animation-iteration-count: infinite;
+
+                }
+            }
+
+
+        }
+
+    }
+
+    @media (min-width: map-get($deviceSize, small)) {
+        .list__header {
+            .new-chat-button {
+                width: 30px;
+                height: 30px;
+                padding: 0;
+                top: 0;
+                right: 30px
+            }
+        }
+
+        .invite {
+            padding: 5px 0;
+
+            h2 {
+                font-size: 16px;
+            }
+
+            .button {
+                padding: 5px 0;
+                margin: 2px 2.5%;
+            }
+        }
+    }
+}

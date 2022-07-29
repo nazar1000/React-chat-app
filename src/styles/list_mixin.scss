@@ -1,0 +1,159 @@
+@import "./resets-global";
+@import "./animations";
+
+// For conversation_list and user_list
+//The main container is found in main as list-container
+
+@mixin list-div {
+    width: 100%;
+    min-height: 100px;
+    // background-color: rgb(200, 217, 240);
+    margin: 0;
+    float: left;
+
+    .list__header {
+        // position: relative;
+
+        .refresh-button {
+            display: none;
+        }
+
+        h3 {
+            line-height: 1.5;
+            width: calc(100% - 60px);
+            color: black;
+            font-size: 13px;
+            padding: 5px 0;
+            text-align: center;
+        }
+
+        @media (min-width: map-get($deviceSize, small)) {
+            position: relative;
+        }
+
+    }
+
+
+    @media (min-width: map-get($deviceSize, small)) {
+        clear: left;
+        position: relative;
+
+        .list__header {
+
+            .refresh-button {
+                width: 30px;
+                height: 30px;
+                // background-color: rgba(255, 255, 255, 0.568);
+                position: absolute;
+                right: 0;
+                top: 0;
+                display: block;
+
+                cursor: pointer;
+                // background-image: url(../icons/refresh-icon.png); // Refresh icon by Icons8 (https://icons8.com)
+                // background-size: cover;
+
+
+                &:hover {
+                    animation-name: spin;
+                    animation-duration: 2s;
+                    animation-iteration-count: infinite;
+                    animation-timing-function: linear;
+                }
+
+            }
+        }
+    }
+
+    @media (min-width: map-get($deviceSize, medium)) {}
+
+}
+
+@mixin list-element {
+    padding: 10px 10px;
+    border-bottom: 2px solid #817f8640;
+    overflow: auto;
+
+    .profile-img {
+        float: left;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: red;
+        position: relative;
+
+        img {
+            width: 100%;
+        }
+
+        .user__active {
+            width: 14px;
+            height: 14px;
+            background-color: green;
+            border-radius: 50%;
+            position: absolute;
+            right: 0;
+            bottom: 0;
+
+        }
+
+
+    }
+
+    h2 {
+        text-align: left;
+        float: left;
+        line-height: 2;
+        margin-left: 10px;
+    }
+
+
+    @media (min-width: map-get($deviceSize, small)) {
+        padding: 5px;
+        border-bottom: 2px solid #817f8640;
+
+        .profile-img {
+            width: 40px;
+            height: 40px;
+
+            img {}
+
+            .user__active {
+                float: right;
+
+            }
+
+        }
+
+        h2 {
+            margin-left: 7px;
+            line-height: 1.5;
+            font-size: 16px;
+        }
+
+        &:hover {
+            // background-color: #dfdfe1;
+            animation-name: highlight;
+            animation-duration: 0.3s;
+            animation-fill-mode: forwards;
+
+        }
+
+    }
+
+}
+
+@mixin list-element__tools {
+    float: right;
+    width: fit-content;
+    height: 50px;
+    text-align: center;
+    margin: 0 4px;
+    // background-color: green;
+
+
+    @media (min-width: map-get($deviceSize, small)) {
+        // display: none;
+    }
+
+}

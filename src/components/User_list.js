@@ -1,81 +1,32 @@
-
-import '../styles/User_list.css';
-import * as Axios from 'axios';
-import { useEffect, useState } from 'react';
-
-
+import '../styles/User_list.scss';
+import { capitaliseLetter } from '../helper/helper';
 
 function User_list(props) {
-    const [userList, setUserList] = useState([]);
-
-    useEffect(() => {
-        if (props.counter % 20 == 0 || props.counter == 1) {
-            getUserList();
-        }
-    }, [props.counter])
-
-    useEffect(() => {
-        getUserList();
-    }, [props.warning])
-
-
-    const getUserList = () => {
-        Axios.get('http://127.0.0.1:3001/api/get_users', {
-        }).then((res) => {
-            setUserList(res.data);
-        });
-    };
-
-
-    const createConversation = (user_name, user_id) => {
-        if (user_name == props.login.username) {
-            console.log("You cannot chat with yourself :P")
-            return;
-        }
-
-        Axios.get(`http://127.0.0.1:3001/api/create_conversation/${user_name}/${user_id}/${props.login.id}/${props.login.username}`, {
-        }).then((res) => {
-            console.log(res);
-
-            if (res.data.message != "Conversation already exist") props.updateActiveConversation(res);
-            else {
-                let conversation_id = res.data.conversation_id;
-
-                // let conversation = props.conversations.map((conversation) => {
-                //     if (conversation.conversation_id == conversation_id) return conversation;
-                // });
-
-                let conversation = props.conversations.filter((conversation) => {
-                    if (conversation.conversation_id == conversation_id) return conversation;
-                });
-
-                console.log(conversation);
-                props.updateActiveConversation(conversation[0]);
-            }
-
-
-        });
-    }
-
-    const test = () => {
-        console.log(userList);
-        console.log(props);
-    }
-
-
 
 
     return (
         <>
             <div className="user-list-div">
-                <button onClick={() => { test() }}> debug</button>
-                <h3>
-                    User list
-                </h3>
+                <div className='list__header'>
+                    <h3>
+                        User list
+                    </h3>
+                    {/* <p className='error'>{props.error?.userList}</p> */}
+                    <img className='refresh-button' src={require('../icons/refresh-icon.png')} onClick={() => props.getUserList()} />
 
-                {userList.map((user, key) => {
+                </div>
+                {props.userList.map((user, key) => {
                     return (
-                        <div key={user.contact_id + 25} onClick={() => { createConversation(user.user_name, user.contact_id) }}><h2>{user.user_name}</h2></div>
+                        <div className='user' key={user.contact_id + 25} onClick={() => { props.createConversation(user.contact_id, user.user_name) }}>
+                            <div className='profile-img'>
+                                <img />
+                                <div className='user__active' style={user.status == 2 ? { backgroundColor: "green" } : { backgroundColor: "yellow" }}></div>
+                            </div>
+                            <h2>{capitaliseLetter(user.user_name)}</h2>
+                            {/* <div className='user__active'></div> */}
+                            <div className='user__tools'>
+                            </div>
+                        </div>
                     )
                 })
                 }

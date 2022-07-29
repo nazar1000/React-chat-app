@@ -1,0 +1,90 @@
+@import "./resets-global";
+
+
+
+.new-group-div {
+    position: absolute;
+    width: calc(90% - 20px);
+    margin-left: 5%;
+    background-color: #b5d0f5;
+    padding: 10px;
+    border-radius: 20px;
+    top: 120px;
+    border: 3px solid $primary-bg-color;
+
+
+    h1 {
+        text-align: center;
+        // color: $complementary1;
+        font-size: 25px;
+        margin: 5px 0;
+    }
+
+    input {
+        font-size: 20px;
+        width: 80%;
+        margin: 10px 10%;
+        text-align: center;
+
+    }
+
+    h2 {
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .users {
+        overflow: auto;
+
+        .user {
+            width: calc(50% - 5px);
+            height: 40px;
+            margin: 5px 0 5px 5px;
+            background-color: white;
+            // border: 1px solid rgb(134, 134, 134);
+            cursor: pointer;
+            border-radius: 20px;
+            float: left;
+
+            .profile-img {
+                width: 34px;
+                height: 34px;
+                float: left;
+                padding: 3px 0;
+            }
+
+            h2 {
+                line-height: 2;
+                margin-left: 5px;
+                float: left;
+            }
+
+            img {
+                height: 30px;
+                padding: 5px 0;
+                float: right;
+                margin-right: 5px;
+            }
+        }
+
+        .highlight {
+            background-color: #5308df5e;
+        }
+    }
+
+    .button {
+        width: 60%;
+        text-align: center;
+        padding: 10px 0;
+        margin: 10px auto;
+        background-color: $primary-bg-color;
+        color: white;
+        cursor: pointer;
+    }
+
+    @media (min-width: map-get($deviceSize, small)) {
+        width: 400px;
+        margin-left: calc(50% - 200px);
+        top: 100px;
+    }
+}
