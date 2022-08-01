@@ -36,7 +36,7 @@ function Chat(props) {
 
     //Gets chat information
     const getChatDetails = (chat_id) => {
-        console.log(chat_id)
+        // console.log(chat_id)
         Axios.get('http://127.0.0.1:3001/api/get_chat_details/' + chat_id + '', {
         }).then((res) => {
             setActiveChat(res.data);
@@ -47,7 +47,8 @@ function Chat(props) {
 
     //Gets messages for the activeChat.
     const getMessage = () => {
-        // console.log("message for" + activeChat.conversation_id);
+
+        console.log("message for" + activeChat.conversation_id);
         Axios.get('http://127.0.0.1:3001/api/get_messages/' + activeChat.conversation_id + '', {
         }).then((res) => {
 
@@ -58,8 +59,8 @@ function Chat(props) {
 
             let breakpoints = createBreaks(res.data);
             // console.log(breakpoints)
-
-            if (messages.length == res.data.length) return;
+            // console.log(breakpoints)
+            // if (messages.length == res.data.length) return;
             // setMessages(res.data);
             setMessages(breakpoints);
             document.getElementsByClassName("chat__window")[0].scrollBy(0, 1000);
@@ -119,13 +120,9 @@ function Chat(props) {
         // console.log(messages);
         //array date
         let uniqueDate = [];
-        // let uniqueDate = dateLabel;
         let newYear = true;
         let newMonth = true;
         let newDay = true;
-
-        // let test = messages.map((message) => { return ({ ...message, tank: 43 }) });
-        // console.log(test);
 
         let updatedMessages = messages.map((message) => {
             let time = message.send_datetime;
@@ -225,7 +222,7 @@ function Chat(props) {
                             </div>
 
                             <div className={message.sender_name == props.login.username ? 'message right-message' : 'message '} >
-                                <h4>{message.sender_name == props.login.username ? "" : message.sender_name}</h4>
+                                <h4>{message.sender_name == props.login.username ? "" : capitaliseLetter(message.sender_name)}</h4>
                                 <h3>{message.message_text}</h3>
                                 <p>{getTime(message.send_datetime)}</p>
 

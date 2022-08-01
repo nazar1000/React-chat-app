@@ -27,7 +27,7 @@ function Login(props) {
         if (userInput.match(pattern1) != null) error += "Username cannot have spaces \n";
         if (userInput == "") error += "Username cannot be empty! ";
         //create error message here
-        console.log(error);
+        // console.log(error);
 
 
         // if (error != "" || input == "") return;
@@ -49,7 +49,7 @@ function Login(props) {
                 if (res.error == "User exists") console.log("Error: userExist"); // User exists
                 else if (res.error.code == "ECONNREFUSED") console.log("Error: Connection Error");// No connection to db
             } else if (res.data.contact_id) {
-                console.log(res.data)
+                // console.log(res.data)
                 // console.log(res);
                 props.handleLogin(res.data);
                 props.updateError("error", "", true);

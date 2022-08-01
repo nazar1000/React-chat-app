@@ -79,7 +79,7 @@ function App() {
     setStatusTimer(300);
     if (logOutTimer < 300) resetLogOutTimer();
     if (login.status == 1) updateStatusDB(2);
-    console.log(login.status)
+    // console.log(login.status)
   }
 
   //Updates user status in db
@@ -117,13 +117,13 @@ function App() {
 
   const toggleNav = () => {
     setMenu(menu => { return { ...menu, open: !menu.open } });  //Toggles mobile menu
-    console.log(menu)
+    // console.log(menu)
     return;
   }
 
   //Login
   const handleLogin = (loginData) => {
-    console.log(loginData);
+    // console.log(loginData);
     setLogin({
       id: loginData.contact_id,
       username: loginData.user_name,
@@ -153,7 +153,7 @@ function App() {
     Axios.post('http://127.0.0.1:3001/api/logout', {
       userID: id,
     }).then((res) => {
-      if (res) console.log(res.data);
+      // if (res) console.log(res.data);
       timedError(updateError, "info", "User logout!", 5)
     })
 

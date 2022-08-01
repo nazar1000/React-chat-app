@@ -45,7 +45,7 @@ function Lists(props) {
     const getInvites = () => {
         Axios.get('http://127.0.0.1:3001/api/get_invites/' + props.login.id + "", {
         }).then((res) => {
-            console.log("getting invites");
+            // console.log("getting invites");
             if (res.data == "empty") setInvites([]); //no invites
             else setInvites(res.data); //sets results
 
@@ -65,7 +65,7 @@ function Lists(props) {
             else if (res.data) {
                 getChatList();
                 getInvites();
-                console.log("response done");
+                // console.log("response done");
 
             }
         })
@@ -74,7 +74,7 @@ function Lists(props) {
 
     useEffect(() => {
         // Refresh trigger for other components
-        console.log(props.refresh)
+        // console.log(props.refresh)
         if (props.refresh.chats) {
             getChatList();
             props.handleRefresh("chats", false); //Resets status
@@ -102,7 +102,7 @@ function Lists(props) {
 
     //Gets userList
     const getUserList = () => {
-        console.log("Getting userList")
+        // console.log("Getting userList")
         Axios.get('http://127.0.0.1:3001/api/get_users', {
         }).then((res) => {
             setUserList(res.data);
@@ -110,7 +110,7 @@ function Lists(props) {
     };
 
     const updateInviteChatInfo = (chat) => {
-        console.log(chat);
+        // console.log(chat);
         setInviteChatInfo({ name: chat.conversation_name, id: chat.conversation_id })
         updateNewGroupTab("invite");
     }
@@ -125,7 +125,7 @@ function Lists(props) {
         if (mode == null || mode == newGroupTab.mode) setNewGroupTab(newGroupTab => { return { ...newGroupTab, open: !newGroupTab.open } }); //Toggle
         else if (mode != newGroupTab.mode) setNewGroupTab({ open: true, "mode": mode });
 
-        console.log(newGroupTab)
+        // console.log(newGroupTab)
         props.resetStatusTimer() //Resets inactivity timer
 
     }
@@ -139,7 +139,7 @@ function Lists(props) {
             timedError(props.updateError, "info", "You cannot chat with yourself :P", 5)
 
             //Let user know error
-            console.log("You cannot chat with yourself :P")
+            // console.log("You cannot chat with yourself :P")
             return;
         }
 
@@ -162,7 +162,7 @@ function Lists(props) {
 
             } else if (res.data.message == "success") {
                 //Creates new conversation (returns conversation_id)
-                console.log("Success");
+                // console.log("Success");
                 getChatList(); //Updates conversations
                 props.updateChatID(res.data.conversation_id)
                 props.updateActiveTab("chat");
@@ -171,7 +171,7 @@ function Lists(props) {
                 timedError(props.updateError, "info", "Chat created!", 5)
             } else {
                 // console.log("Failed");
-                console.log(res.data);
+                // console.log(res.data);
             }
         });
     }
@@ -185,9 +185,10 @@ function Lists(props) {
             chat_name: conversation_id == null ? inviteChatInfo.name : invite.group_name
         }).then((res) => {
             // console.log(res);
-            if (res.error) console.log("Invite sending failed")
-            else {
-                console.log(res);
+            if (res.error) {
+                // console.log("Invite sending failed")
+            } else {
+                // console.log(res);
                 timedError(props.updateError, "info", "Invites send! :)", 5)
             }
 
@@ -208,8 +209,8 @@ function Lists(props) {
         }).then((res) => {
 
             if (res.status == 200) {
-                console.log(res)
-                console.log("removed ?");
+                // console.log(res)
+                // console.log("removed ?");
                 // refresh conversations
                 // timedError(props.updateError, "chatList", "Chat removed!", 5)
                 timedError(props.updateError, "info", "Chat removed!", 5)
@@ -217,7 +218,7 @@ function Lists(props) {
 
                 // console.log(props.activeChat)
                 if (props.chatID == chatID) {
-                    console.log(chatID)
+                    // console.log(chatID)
                     props.updateChatID(null);
                 }
 
@@ -242,6 +243,7 @@ function Lists(props) {
                                 inviteResponse={inviteResponse}
                                 updateNewGroupTab={updateNewGroupTab}
                                 updateInviteChatInfo={updateInviteChatInfo}
+                                userList={userList}
                             // error={props.error} 
                             />
 

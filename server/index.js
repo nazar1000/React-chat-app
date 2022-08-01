@@ -104,7 +104,7 @@ const saltRounds = 10;
 
 //Users
 app.get("/api/get_users", (req, res) => {
-    const sqlSelect = "SELECT * FROM contact"
+    const sqlSelect = "SELECT * FROM contact WHERE active = 1"
     db.query(sqlSelect, (err, result) => {
         if (result.length > 0) res.send(result);
     });
