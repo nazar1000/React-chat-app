@@ -199,7 +199,7 @@ function Chat(props) {
                 {/* {console.log(activeChat)} */}
                 <h2 onClick={() => props.setActiveTab("chatList")}>&#60;</h2>
                 <h2>{activeChat.member_1 ? "" : " Select chat"}
-                    {activeChat.member_1 == props.login.username ? capitaliseLetter(activeChat.member_2) : capitaliseLetter(activeChat.member_1)} </h2>
+                    {activeChat.member_1 == props.login.username ? capitaliseLetter(activeChat.member_2) : (activeChat.member_1)} </h2>
                 {/* {!props.mobile && <div className="close-chat">Close</div>} */}
                 <h5>Please don't send any personal information {"(Not secured)"} </h5>
             </div>
