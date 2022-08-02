@@ -1,70 +1,51 @@
-# Getting Started with Create React App
+# React chat app
+A project made for the purpose of learning more about react.
+After spending some time on this project, I have learned a bit more about react. As I had to redesign my code a couple of times to make it work well, it has taught me to think things through before starting to code, as it would save me a lot of time during debugging. The project itself was fun to make however there was a bit of brainstorming involved with the backend. Overall, I have learned quite a bit, both react, expressJS, sass and generally the structure of code. 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Chat app image](chat-app-1.png)
 
-## Available Scripts
+## Conclusion:
+Looking at the overall project after being mostly done, I can say that there are things which I would design better now. However, given that I am new to react this is pretty good progress. I will continue to improve this as time goes on, as there are a few improvements that could be done.
 
-In the project directory, you can run:
 
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Project features
+- Login (No user token)
+  - Used as anonymous login (no password).
+  - Logout deletes user, but if user closes browser, it won't be deleted. (Making it not secure).
+  
+- App
+  - The app user list, chat list and chat refresh every couple of seconds.
+  
+- User list
+  - Displays profile picture (currently uses random image)
+  - Username
+  - Click results in creation of 1 to 1 chat with that user.
+  
+- Chat list
+  - Displays invites and chats
+  - Ability to create multi user chat with custom name (Buggy due to bad DB structure, learning right...).
+  - Deleting 1 to 1 chat, removes it for both users.
+  - Deleting multi user chat removes the user from that chat. (No notification message)
+  - Does not notify user of new messages (Current structure of code does not easily allow for that).
+  
+- Chat window
+  - Updates messages only for the current chat
+  
+- Server 
+  - The server clears all messages, empty chats and sets inactivity every 30 min. (Can be easily changed to something else).
+  
+ ## Improvements
+ - [ ] The design of this app could be more focused, as currently it is a 
+ mix between anonymous chat room and general chat that remembers you.
+ - [ ] The code could be simpler and more straight forward.
+ 
+- Login
+  - [ ] Could be made more secure
+  - [ ] Keeping the active username unique (to prevent other people login in using existing logins)
+  - [ ] Custom profile pictures or a selection to choose from, would look nice.
+  
+- User/chat list 
+  - [ ] 1 to 1 chats could be merged in to the user tile, instead of creating a separate chat.
+  - [ ] New message notification for all chats not just the active one.
+  
+Other general improvements....
