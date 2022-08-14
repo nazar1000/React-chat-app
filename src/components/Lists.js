@@ -66,10 +66,8 @@ function Lists(props) {
                 getChatList();
                 getInvites();
                 // console.log("response done");
-
             }
         })
-
     }
 
     useEffect(() => {
@@ -102,10 +100,58 @@ function Lists(props) {
 
     //Gets userList
     const getUserList = () => {
-        // console.log("Getting userList")
         Axios.get('http://127.0.0.1:3001/api/get_users', {
         }).then((res) => {
-            setUserList(res.data);
+
+            // returns
+            // data.users = User informations
+            // data.chats = list of active chats of current user
+            // data.lastMessage = All the last messages of all conversations (Need better sql code)
+            console.log(res.data)
+
+            let newData = res.data.users.map((user) => {
+                let newUser;
+                res.data.chats.map((chat) => {
+                    if (user.contact_id == chat.user2) {
+                        res.data.lastMessage.map((message) => {
+                            if (chat.conversations_id == message.conversation_id) {
+
+                                // let read = false;
+                                // let index = userList.find((user, index) => {
+                                //     if (user.contact_id == chat.user2) return index;
+                                // })
+                                // if (userList[index].message != undefined) {
+                                //     if (userList[index].message == message.message_text) {
+                                //         read = true;
+                                //     }
+                                // }
+
+
+                                newUser = {
+                                    ...user, message: {
+                                        messageText: message.message_text,
+                                        messageDate: message.send_datetime,
+                                        senderName: message.sender_name,
+                                        read: false
+                                    }
+                                }
+                            }
+                        })
+                    }
+                })
+                if (newUser) return newUser;
+                else return user;
+            }).sort((a, b) => {
+                let da = a.message != undefined ? new Date(a.message.messageDate) : 0;
+                let db = b.message != undefined ? new Date(b.message.messageDate) : 0;
+                return db - da;
+            })
+
+
+
+            setUserList(newData);
+            // setUserList(res.data.users);
+
         });
     };
 
@@ -135,18 +181,13 @@ function Lists(props) {
         props.resetStatusTimer(); //Resets inactivity timer
 
         if (other_username == props.login.username && invite == null) {
-            // timedError(props.updateError, "userList", "You cannot chat with yourself :P", 5)
             timedError(props.updateError, "info", "You cannot chat with yourself :P", 5)
-
-            //Let user know error
-            // console.log("You cannot chat with yourself :P")
             return;
         }
 
         //If using create new multi members group
-        if (invite != null) {
-            setNewGroupTab(false); //hide new group tab
-        }
+        if (invite != null) setNewGroupTab(false); //hide new group tab
+
 
         let my_id = props.login.id;
         let my_username = props.login.username;
@@ -156,7 +197,6 @@ function Lists(props) {
             // console.log(res.data);
             if (res.data.message == "exist") {
                 //Conversation exists (returns conversation_id);
-                // console.log("Exists");
                 props.updateChatID(res.data.conversation_id); //Sets current chat as existing conversation
                 props.updateActiveTab("chat");
 
@@ -167,7 +207,6 @@ function Lists(props) {
                 props.updateChatID(res.data.conversation_id)
                 props.updateActiveTab("chat");
                 if (invite) sendInviteToGroup(res.data.conversation_id, invite);
-                // timedError(props.updateError, "chat", "Chat created!", 5)
                 timedError(props.updateError, "info", "Chat created!", 5)
             } else {
                 // console.log("Failed");

@@ -29,32 +29,32 @@ const db = mysql.createPool({
 
 // Timer for resetting all messages
 let countDown = 30 * 60;
-const timer = setInterval(() => {
-    if (countDown == 0) {
+// const timer = setInterval(() => {
+//     if (countDown == 0) {
 
-        //Deletes all messages
-        const sqlDeleteAll = "DELETE FROM message;";
-        db.query(sqlDeleteAll, (e1, r1) => {
-            if (r1) console.log("Removed all messages;");
-        });
+//         //Deletes all messages
+//         const sqlDeleteAll = "DELETE FROM message;";
+//         db.query(sqlDeleteAll, (e1, r1) => {
+//             if (r1) console.log("Removed all messages;");
+//         });
 
-        //Conversations without members
-        const sqlDeleteEmptyConvo = "delete from conversations WHERE conversation_id not in (select distinct conversations_id from group_members);";
-        db.query(sqlDeleteEmptyConvo, (e1, r1) => {
-            if (r1) console.log("Removed all empty conversations");
-        });
+//         //Conversations without members
+//         const sqlDeleteEmptyConvo = "delete from conversations WHERE conversation_id not in (select distinct conversations_id from group_members);";
+//         db.query(sqlDeleteEmptyConvo, (e1, r1) => {
+//             if (r1) console.log("Removed all empty conversations");
+//         });
 
-        //Sets users who have been inactive for more then x, to be offline, 
-        const sqlUpdate = "UPDATE contact SET active = 0 WHERE last_active < date_add(CURRENT_TIMESTAMP, INTERVAL -30 MINUTE);"
-        db.query(sqlUpdate, (e1, r1) => {
-            if (r1) console.log("Removed non active users");
-        });
-        countDown = 30 * 60;
+//         //Sets users who have been inactive for more then x, to be offline, 
+//         const sqlUpdate = "UPDATE contact SET active = 0 WHERE last_active < date_add(CURRENT_TIMESTAMP, INTERVAL -30 MINUTE);"
+//         db.query(sqlUpdate, (e1, r1) => {
+//             if (r1) console.log("Removed non active users");
+//         });
+//         countDown = 30 * 60;
 
-    }
-    countDown--;
-    // console.log(countDown)
-}, 1000);
+//     }
+//     countDown--;
+//     // console.log(countDown)
+// }, 1000);
 
 // const bodyParser = require('body-parser');
 // app.use(bodyParser.urlencoded({ extended: true }));
@@ -104,9 +104,52 @@ const saltRounds = 10;
 
 //Users
 app.get("/api/get_users", (req, res) => {
+    let userId;
+
+    //Getting users
     const sqlSelect = "SELECT * FROM contact WHERE active = 1"
     db.query(sqlSelect, (err, result) => {
-        if (result.length > 0) res.send(result);
+        if (result.length > 0) {
+            // console.log("GETTING all users", result)
+            //Getting all the conversations that users is in
+            const sqlSelect = `
+            SELECT gm1.*, gm2.contact_id as user2 
+            FROM group_members gm1, group_members gm2
+            WHERE gm1.contact_id = ? && gm1.contact_id != gm2.contact_id && gm1.conversations_id = gm2.conversations_id;
+            `
+            db.query(sqlSelect, [159], (err1, result1) => {
+                if (result1) {
+                    // console.log("GETTING all user convo", result1)
+
+                    // Results last messages for each conversation
+                    const sqlSelect = `WITH ranked_messages AS (
+                            SELECT m.*, ROW_NUMBER() OVER (PARTITION BY conversation_id ORDER BY send_datetime DESC) AS rn
+                            FROM message AS m
+                          )SELECT * FROM ranked_messages WHERE rn = 1;`
+                    db.query(sqlSelect, (err2, result2) => {
+                        if (result2) {
+                            console.log("YAY");
+                            console.log(({
+                                users: result,
+                                chats: result1,
+                                lastMessage: result2
+                            }))
+
+                            res.send({
+                                users: result,
+                                chats: result1,
+                                lastMessage: result2
+                            })
+
+                        }
+                    })
+
+                }
+
+                // res.send(result);
+            })
+
+        }
     });
 })
 

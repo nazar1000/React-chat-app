@@ -2,10 +2,7 @@ import '../styles/Conversations_list.scss';
 import { capitaliseLetter } from '../helper/helper';
 
 
-
-
 function Conversations_list(props) {
-
     const findUser = (userID) => {
         // console.log(props);
         // console.log(userID);
@@ -41,7 +38,11 @@ function Conversations_list(props) {
 
             {props.chatList.map((converse) => {
                 let img = "https://loremflickr.com/64/64/people?random=" + converse.conversation_id;
+                if (converse.private_conversation == 1) return false;
                 return (
+
+
+
                     <div className='conversation' key={converse.conversation_id + 20} onClick={(e) => { props.setChat(converse.conversation_id) }}>
                         <div className='profile-img'>
                             <img src={img} />
@@ -73,6 +74,7 @@ function Conversations_list(props) {
 
                         </div>
                     </div>
+
                 )
             })
             }

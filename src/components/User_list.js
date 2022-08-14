@@ -11,7 +11,6 @@ function User_list(props) {
                     <h3>
                         User list
                     </h3>
-                    {/* <p className='error'>{props.error?.userList}</p> */}
                     <img className='refresh-button' src={require('../icons/refresh-icon.png')} onClick={() => props.getUserList()} />
 
                 </div>
@@ -24,8 +23,10 @@ function User_list(props) {
                                 <div className='user__active' style={user.status == 2 ? { backgroundColor: "green" } : { backgroundColor: "yellow" }}></div>
                             </div>
                             <h2>{capitaliseLetter(user.user_name)}</h2>
-                            {/* <div className='user__active'></div> */}
+                            <p>{(user.message ? user.message?.senderName + ": " + user.message?.messageText : "")}</p>
                             <div className='user__tools'>
+
+
                             </div>
                         </div>
                     )

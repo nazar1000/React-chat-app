@@ -45,7 +45,7 @@ Looking at the overall project after being mostly done, I can say that there are
   - [ ] Custom profile pictures or a selection to choose from, would look nice.
   
 - User/chat list 
-  - [ ] 1 to 1 chats could be merged in to the user tile, instead of creating a separate chat.
+  - [x] 1 to 1 chats could be merged in to the user tile, instead of creating a separate chat.
   - [ ] New message notification for all chats not just the active one.
   
 Other general improvements....
